@@ -10,7 +10,7 @@
 
 Follow the instruction below to build the attached C++ code. This code will display an OpenGL window showing a triangle.  Take a screenshot of the window (it should look like the image above) and paste it below.  By putting the imae under the directory `cga-<username>/task00` and edit this markdown document. 
 
-=== (paste the screenshot image here`![](image file name)` ) === 
+![](./%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202022-04-18%2015.09.54.png)
 
 
 ----
