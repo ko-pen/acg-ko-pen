@@ -33,5 +33,13 @@ void main()
     float x1 = x0;
     float y1 = y0;
     float z1 = z0;
+    float z = z0 - cam_z_pos;
+    float r = sqrt(x0*x0+y0*y0);
+    float theta = atan(r,z);
+    float phi = atan(y0,x0);
+    x1 = theta/PI*cos(phi);
+    y1 = theta/PI*sin(phi);
+    z1 = atan(sqrt(x0*x0+y0*y0+z*z));
+
     gl_Position = vec4(x1,y1,z1,1); // homogenious coordinate
 }
