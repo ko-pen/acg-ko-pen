@@ -16,6 +16,11 @@ float sdf_box( vec3 pos, vec3 hsize )
   return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
 }
 
+float sdf_sphere( vec3 pos, float r )
+{
+  return length(pos) - r;
+}
+
 // Definition of singed distance funtion called from
 float SDF(vec3 pos)
 {
@@ -27,7 +32,18 @@ float SDF(vec3 pos)
   // https://iquilezles.org/articles/distfunctions/
 
   // for "problem2" the code below is not used.
-  return sdf_box(pos, vec3(0.1,0.2,0.3));
+  // return sdf_box(pos, vec3(0.1,0.2,0.3));
+
+  float d = length(pos) - 0.8; // distance from big sphere surface
+  for(int i=-4;i<=4;i++){
+    for(int j=-4;j<=4;j++){
+      for(int k=-4;k<=4;k++){
+        float d_ = distance(pos,vec3(0.2*i,0.2*j,0.2*k)) - 0.12; // distance from small sphere surface
+        d = max(d,-d_); // CSG Difference
+      }
+    }
+  }
+  return d;
 }
 
 void main()
