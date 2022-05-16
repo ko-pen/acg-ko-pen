@@ -49,9 +49,30 @@ double SamplingHemisphere(
   // hint4: first assume z is the up in the polar coordinate, then rotate the sampled direction such that "z" will be up.
   // write some codes below (5-10 lines)
 
+//  int num = 10;
+//  double C = 0.0;
+//  for(int i=0;i<num;++i) {
+    const auto d0 = dfm2::MyERand48<double>(Xi);
+    const auto d1 = dfm2::MyERand48<double>(Xi);
+    float theta = asin(sqrt(d0));
+    float phi = 2 * M_PI * d1;
+    dir[0] = sin(theta) * cos(phi);
+    dir[1] = sin(theta) * sin(phi);
+    dir[2] = cos(theta);
+    float r_ = sqrt(nrm[0]*nrm[0] + nrm[1]*nrm[1] + nrm[2]*nrm[2]);
+    float theta_ = acos(nrm[2]/r_);
+    float phi_ = nrm[1]/abs(nrm[1]) * acos(nrm[0]/sqrt(nrm[0]*nrm[0] + nrm[1]*nrm[1]));
+    double dir_[3] = {dir[0],dir[1],dir[2]};
+    dir[0] = dir_[0] * cos(theta_) * sin(phi_) + dir_[1] * cos(theta_) * sin(phi_) + dir_[2] * sin(theta_);
+    dir[1] = - dir_[0] *  sin(phi_) + dir_[1] * cos(phi_);
+    dir[2] = - dir_[0] * sin(theta_) * sin(phi_) - dir_[1] * sin(theta_) * sin(phi_) + dir_[2] * cos(theta_);
+    return 1;
+//  }
+//  return C/num;
 
   // below: naive implementation to "uniformly" sample hemisphere using "rejection sampling"
   // to not be used for the "problem2" in the assignment
+  /*
   for(int i=0;i<10;++i) { // 10 is a magic number
     const auto d0 = dfm2::MyERand48<double>(Xi);  // you can sample uniform distribution [0,1] with this function
     const auto d1 = dfm2::MyERand48<double>(Xi);
@@ -69,7 +90,7 @@ double SamplingHemisphere(
     double cos = nrm[0]*dir[0] + nrm[1]*dir[1] + nrm[2]*dir[2]; // cosine weight
     if( cos < 0 ){ continue; }
     return cos*2;  // (coefficient=1/M_PI) * (area_of_hemisphere=M_PI*2) = 2
-  }
+  }*/
   return 0;
 }
 
